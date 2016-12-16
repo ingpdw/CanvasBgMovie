@@ -25,9 +25,11 @@ $( 'body' ).on( 'click', function( evt ){
 |fixedTop|false| fixed |
 |autoplay|true| autoplay |
 |poster|''|video poster image url|
+|loop| true | loop  |
 |movieUrl| '' | video url  |
 |movieWidth |  | video width |
 |movieHeight | | video height |
+|endedCallback | function(){} | Fires when the current playlist is ended |
 
 #### method
 |method|return|description|
@@ -35,3 +37,6 @@ $( 'body' ).on( 'click', function( evt ){
 |play()| '' | play |
 |pause()| '' | pause|
 |isIOS()| boolean| iOS|
+|load()| ''| load |
+|changeMovie( movie )| '' | change the source of the video |
+|setLoop( boolean )| '' | loop |

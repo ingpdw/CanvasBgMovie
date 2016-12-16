@@ -13,7 +13,8 @@ class Movie{
 			movieWidth: 960,
 			movieHeight: 540,
 			movieUrl : '',
-			poster: ''
+			poster: '',
+			endedCallback: ''
 		}
 
 		jQuery.extend( true, this.options, options );
@@ -65,6 +66,24 @@ class Movie{
 		}
 	}
 
+	load() {
+		this.video.load();
+	}
+
+	setLoop( bool ) {
+		( bool )?
+			this.videoNode.prop( 'loop', 'true' ):
+			this.videoNode.prop( 'loop', null );
+
+	}
+
+	changeMovie( movieUrl ) {
+		if( !movieUrl ) return;
+
+		this.options.movieUrl = movieUrl;
+		this.videoNode.find( 'source' ).attr( 'src', movieUrl );
+	}
+
 	init() {
 		this.video.load();
 		this.setCanvasSize();
@@ -88,6 +107,10 @@ class Movie{
 				this.drawFrame();
 			}
 		}
+
+		this.video.addEventListener( 'ended', () => {
+			this.options.endCallback && this.options.endCallback();
+		});
 
 		if ( this.isIOS() && this.options.autoplay ) {
 		  this.play();
@@ -200,7 +223,12 @@ class Movie{
 	}
 
 	tmplVideo () {
-		return `<video class="video" muted="true" loop="true" autoplay="true" poster="${this.options.poster}">
+		let loop = '';
+
+		if( this.options.loop )
+			loop = `loop="true" `;
+
+		return `<video class="video" muted="true" ${loop}autoplay="true" poster="${this.options.poster}">
 			<source src="${this.options.movieUrl}" type="video/mp4"></video>`;
 	}
 
