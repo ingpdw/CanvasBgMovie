@@ -173,7 +173,11 @@ class Movie{
 			this.loop();
 		}else{
 			this.playing = true;
-			this.videoNode.get( 0 ).play();
+
+			//TODO DOMException: The play() request was interrupted by a call to pause().
+			try {
+				this.videoNode.get( 0 ).play();
+			} catch( e ){}
 		}
 	}
 
@@ -182,7 +186,10 @@ class Movie{
 			this.playing = false;
 		}else{
 			this.playing = false;
-			this.videoNode.get( 0 ).pause();
+			//TODO DOMException: The play() request was interrupted by a call to pause().
+			try {
+				this.videoNode.get( 0 ).pause();
+			} catch( e ){}
 		}
 	}
 
